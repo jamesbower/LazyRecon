@@ -18,10 +18,10 @@ installBanner(){
 update(){
     echo -e "${GREEN}\n--==[ Setting things up ]==--${RESET}"
     echo -e "${RED}[+] Updating...${RESET}"
-    sudo apt-get update -y
-    sudo apt-get upgrade -y
-    sudo apt-get autoremove -y
-    sudo apt clean
+    apt-get update -y
+    apt-get upgrade -y
+    apt-get autoremove -y
+    apt clean
 }
 
 
@@ -37,15 +37,15 @@ setupTools(){
     installBanner "setup tools"
     INSTALL_PKGS="git python python-pip python3 python3-pip libldns-dev gcc g++ make libpcap-dev xsltproc curl"
     for i in $INSTALL_PKGS; do
-        sudo apt-get install -y $i
+        apt-get install -y $i
     done
 
     if [ "ubuntu" == "$(cat /etc/os-release | grep ^ID= | cut -d '=' -f2)" ]; then
-        sudo add-apt-repository ppa:canonical-chromium-builds/stage -y
-        sudo apt update -y
-        sudo apt install -y chromium-browser
+        add-apt-repository ppa:canonical-chromium-builds/stage -y
+        apt update -y
+        apt install -y chromium-browser
     else
-        sudo apt install -y chromium
+        apt install -y chromium
     fi
 }
 
@@ -66,12 +66,12 @@ subEnumTools(){
         go get -u github.com/subfinder/subfinder
         echo -e "${RED}[+] Setting up API keys for subfinder...${RESET}"
         # Set your API keys here
-        ~/go/bin/subfinder --set-config VirustotalAPIKey=<API-KEY-HERE>
-        ~/go/bin/subfinder --set-config PassivetotalUsername=<API-KEY-HERE>,PassivetotalKey=<API-KEY-HERE>
-        ~/go/bin/subfinder --set-config SecurityTrailsKey=<API-KEY-HERE>
-        ~/go/bin/subfinder --set-config RiddlerEmail=<API-KEY-HERE>,RiddlerPassword=<API-KEY-HERE>
-        ~/go/bin/subfinder --set-config CensysUsername=<API-KEY-HERE>,CensysSecret=<API-KEY-HERE>
-        ~/go/bin/subfinder --set-config ShodanAPIKey=<API-KEY-HERE>
+#        ~/go/bin/subfinder --set-config VirustotalAPIKey=<API-KEY-HERE>
+#        ~/go/bin/subfinder --set-config PassivetotalUsername=<API-KEY-HERE>,PassivetotalKey=<API-KEY-HERE>
+#        ~/go/bin/subfinder --set-config SecurityTrailsKey=<API-KEY-HERE>
+#        ~/go/bin/subfinder --set-config RiddlerEmail=<API-KEY-HERE>,RiddlerPassword=<API-KEY-HERE>
+#        ~/go/bin/subfinder --set-config CensysUsername=<API-KEY-HERE>,CensysSecret=<API-KEY-HERE>
+#        ~/go/bin/subfinder --set-config ShodanAPIKey=<API-KEY-HERE>
     fi
 
     installBanner "subjack"
@@ -92,7 +92,7 @@ corsTools(){
         cd $TOOLS_PATH
         git clone https://github.com/chenjj/CORScanner.git
         cd CORScanner
-        sudo pip install -r requirements.txt
+        pip install -r requirements.txt
         cd $WORKING_DIR
     fi
 }
@@ -134,7 +134,7 @@ portScanTools(){
         cd nmap-$LATEST_NMAP
         ./configure
         make -j
-        sudo make -j install
+        make -j install
         cd $WORKING_DIR
         rm -rf nmap-$LATEST_NMAP*
     else 
@@ -147,7 +147,7 @@ portScanTools(){
             cd nmap-$LATEST_NMAP
             ./configure
             make -j
-            sudo make -j install
+            make -j install
             cd $WORKING_DIR
             rm -rf nmap-$LATEST_NMAP*
         fi 
